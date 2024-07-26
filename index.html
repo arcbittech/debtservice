@@ -165,7 +165,55 @@ var pysOptions = {"staticEvents":{"facebook":{"init_event":[{"delay":0,"type":"s
 				#quiz button:hover {
 					background: #908CE1;
 				}
-			
+		
+				.popup-hidden {
+            display: none;
+        }
+
+        .popup-content {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .popup-content h3 {
+            margin-top: 0;
+        }
+
+        .popup-content button {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .popup-content button#callButton {
+            background-color: #28a745;
+        }
+
+        .popup-content .disclaimer {
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .popup-content button#closePopup {
+            background-color: #dc3545;
+        }
+
+        .popup-content button:hover {
+            opacity: 0.9;
+        }
 			</style>
 			<style id="wpforms-css-vars-root">
 				:root {
@@ -343,7 +391,18 @@ var pysOptions = {"staticEvents":{"facebook":{"init_event":[{"delay":0,"type":"s
 					</form>
 				</section>
 				
-				
+				<!-- Popup Container -->
+				<div id="popup" class="popup-hidden">
+					<div class="popup-content">
+						<h3>Contact Us</h3>
+						<p>Number: +1(888) 217-7523</p>
+						<button id="callButton">Call Us</button>
+						<p class="disclaimer">By calling YessFinancial.com or its affiliates, I agree and acknowledge that YessFinancial.com or its affiliates may send (2) text messages to my wireless phone number if the call gets disconnected so that I may re-connect or schedule a callback for a later time. Txt & data rates may apply. Messaging can be opted out.</p>
+						<button id="closePopup">Close</button>
+					</div>
+				</div>
+
+
 	
 				<section class="elementor-section elementor-top-section elementor-element elementor-element-699c6eb2 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="699c6eb2" data-element_type="section">
 						<div class="elementor-container elementor-column-gap-default">
@@ -543,7 +602,22 @@ var wpformsElementorVars = {"captcha_provider":"recaptcha","recaptcha_type":"v2"
 </script>
 <script src="./YessFinancial.com_files/frontend.min(1).js.download" id="wpforms-elementor-js"></script>
 
+<script>
+    document.getElementById('quizForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const answers = Array.from(document.querySelectorAll('input[type="radio"]:checked'));
+        const allYes = answers.every(answer => answer.value === 'yes');
+        
+        if (allYes) {
+            document.getElementById('popup').classList.remove('popup-hidden');
+        }
+    });
 
+    document.getElementById('closePopup').addEventListener('click', function() {
+        document.getElementById('popup').classList.add('popup-hidden');
+    });
+</script>
 
 </body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
       div.grammarly-desktop-integration {
